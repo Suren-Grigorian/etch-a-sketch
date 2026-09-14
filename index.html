@@ -8,8 +8,25 @@
     <script src = "script.js" defer></script>
 </head>
 <body>
-    <h1 id="header">Welcome to Etch-a-Sketch</h1>
-    <div id="container">
+    
+    <div class="slidecontainer">
+        <p> Choose your grid size</p>
+        <input type="range" min="1" max="100" 
+            value="16" class="slider" id="myRange" oninput="this.nextElementSibling.value = this.value">
+        <output class="output">16</output>
+        <button id="confirm">Confirm</button>
     </div>
+
+    <div id="page">
+        <h1 id="header">Welcome to Etch-a-Sketch</h1>
+        
+        <div id="container">
+         </div>
+        </div>
+        <div id="buttons">
+            <p>Reset the Board</p>
+            <button id="reset">Reset</button>
+        </div>
+    
 </body>
 </html>
