@@ -34,6 +34,25 @@ h1{
     font-weight: 800;
 }
 
+h2{
+    font-size: 20px;
+    color: #f76c5e;
+    border-style: solid;
+    padding: 20px;
+    border-width: 4px;
+    font-weight: 800;
+}
+
+
+.left-panel{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+    margin-top: 200px;
+}
+
+
 p{
     font-size: 25px;
     color: #f76c5e;
@@ -52,6 +71,24 @@ p{
     flex: 1;
 }
 
+#color-picker{
+    display:flex;
+    flex-direction: column;
+
+
+}
+
+#color-choose{
+    background-color: black;
+    display:flex;
+    
+}
+
+.color-picker{
+    flex: 1;
+    min-height: 80px;
+}
+
 .row{
     display:flex;
     flex: 1;
@@ -59,7 +96,7 @@ p{
 }
 
 .permahover{
-    background-color: red;
+    background-color: #ff0000;
 }
 
 #buttons{
@@ -101,11 +138,14 @@ button:hover{
   to {background-position:0 -200%}
 }
 
+
+
 .slidecontainer{
     width: 200px;
     display: flex;
     flex-direction: column;
     align-items:center;
+    gap: 0px;
 }
 
 .slider{
@@ -135,9 +175,10 @@ button:hover{
 .output{
     display:flex;
     align-items: center;
-    width: 20px;
+    width: 30px;
     padding:5px;
-    font-size: 15px;
+    font-size: 20px;
+    font-weight: 800;
     background-color: #f76c5e;
     border-radius: 10px;
 }
@@ -145,7 +186,6 @@ button:hover{
 /* Dropdown Button */
 .dropbtn {
     cursor: pointer;
-    margin-top: 100px;
     background: transparent;
     font-weight: 800;
     font-size: 20px;

@@ -9,35 +9,43 @@
 </head>
 <body>
     
-    <div class="slidecontainer">
-        
-        <input type="range" min="1" max="200" 
-            value="16" class="slider" id="myRange">
-        <output id="output" class="output">16</output>
-        <button id="confirm">Confirm grid size</button>
-    <div class="dropdown">
-            <button onclick="dropDown()" class="dropbtn" id ="color-select">Choose colors &#9660;</button>
-            <div id="myDropdown" class="dropdown-content">
-                <a id="choice-default">Default</a>                
-                <a id="choice-white">White and Black</a>
-                <a id="choice-black">Black and White</a>
+    <div class="left-panel">
+            <div class="slidecontainer">
+                <input type="range" min="1" max="200" 
+                    value="16" class="slider" id="myRange">
+                <output id="output" class="output">16</output>
+                <button id="confirm">Confirm grid size</button>
             </div>
-    </div>
+            <div class="dropdown">
+                <button onclick="dropDown()" class="dropbtn" id ="color-select">Choose theme &#9660;</button>
+                <div id="myDropdown" class="dropdown-content">
+                    <a id="choice-default">Default</a>                
+                    <a id="choice-white">White and Black</a>
+                    <a id="choice-black">Black and White</a>
+                    <a id="choice-random">Random</a>
+                </div>
+        </div>
+            <div id="color-picker">
+                    <h2>Choose a custom color:</h2>
+                    <div id="color-choose">
+                        <input type="color" class = "color-picker" id="custom-fill-color" value="#ff0000"/>
+                    </div>
+            </div>
     </div>
     
     <div id="page">
         <h1 id="header">Welcome to Etch-a-Sketch</h1>
         
-        <div id="container">
-         </div>
-        </div>
-        <div id="buttons">
-            <button id="default">Paint</button>
-            <button id="shadow">Shadow</button>
-            <button id="eraser">Eraser</button>
-            <button id="rainbow">Rainbow Mode</button>
-            <button id="reset">Reset the Board</button>
-        </div>
+        <div id="container"></div>
+    </div>
+        
+    <div id="buttons">
+        <button id="default">Paint</button>
+        <button id="shadow">Shadow</button>
+        <button id="eraser">Eraser</button>
+        <button id="rainbow">Rainbow Mode</button>
+        <button id="reset">Reset the Board</button>
+    </div>
     
 </body>
 </html>

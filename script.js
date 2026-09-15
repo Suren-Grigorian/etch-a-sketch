@@ -1,16 +1,3 @@
-let gridSize = 16
-const container = document.getElementById("container")
-const body = document.querySelector("body")
-let mode = "default"
-let fillColor = "rgb(255,0,0)"
-let bgColor = "rgb(246,142,95)"
-
-const slider = document.getElementById("myRange");
-slider.addEventListener("change", function() {
-    document.getElementById("output").textContent = slider.value;
-});
-
-
 function fillRow(n, row){
     for (let i=0; i< n; i++){
         const gridCell = document.createElement("div")
@@ -27,7 +14,9 @@ function fillRow(n, row){
                 gridCell.style.backgroundColor = bgColor
             }else if (mode == "shadow"){
                 gridCell.dataset.percentage = Number(gridCell.dataset.percentage) + 1;
-                gridCell.style.backgroundColor = colorTransform(gridCell.dataset.percentage, toRGBArray(gridCell.style.backgroundColor), toRGBArray(fillColor))
+                gridCell.style.backgroundColor = colorTransform(gridCell.dataset.percentage, 
+                                                                toRGBArray(gridCell.style.backgroundColor), 
+                                                                toRGBArray(fillColor))
 
             }else{
                 gridCell.style.backgroundColor = bgColor
@@ -36,6 +25,28 @@ function fillRow(n, row){
         row.appendChild(gridCell)
     }
 }
+
+function fillGrid(n){
+    for (let i=0; i<n; i++){
+        const row = document.createElement("div")
+        row.className = "row"
+        fillRow(n, row)
+        container.appendChild(row)
+    }
+}
+
+function clearBoard(){
+    console.log(gridSize)
+    removeGrid()
+    fillGrid(gridSize)
+}
+
+function removeGrid(){
+    document.querySelectorAll(".row").forEach(row => {
+        row.remove()
+    })
+}
+
 
 function colorTransform(percentage, start, end){
     if (start == end){
@@ -49,41 +60,67 @@ function colorTransform(percentage, start, end){
     return (`rgb(${rResult}, ${bResult}, ${gResult}`)
 }
 
+function getRandomColor() {
+  color = `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)} )`
+  return color
 
-function fillGrid(n){
-    for (let i=0; i<n; i++){
-        const row = document.createElement("div")
-        row.className = "row"
-        fillRow(n, row)
-        container.appendChild(row)
-    }
 }
 
-
-function clearBoard(){
-    console.log(gridSize)
+function themeChange(bg, fill, background){
+    bgColor = bg
+    fillColor = fill
     removeGrid()
     fillGrid(gridSize)
-}
-
-
-function removeGrid(){
-    document.querySelectorAll(".row").forEach(row => {
-        row.remove()
+    slider.style.setProperty("--thumb-color", fill);
+    slider.style.backgroundColor = bg
+    output.style.backgroundColor = bg
+    if (fill != "rgb(0,0,0)"){
+        output.style.color = fill
+    } else{
+        output.style.color = "rgb(0,0,0)"}
+    body.style.backgroundColor = background;
+    document.querySelectorAll("button").forEach(button =>{
+        button.style.color = bg
+        button.style.borderColor = bg
     })
-}
-
-
-function getRandomColor() {
-  let letters = '0123456789ABCDEF';
-  let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
+    document.querySelector("h1").style.color = bg
+    document.querySelector("h2").style.color = bg
 }
 
 const toRGBArray = (rgbStr) => rgbStr.match(/\d+/g).map(Number);
+
+//modified version taken from https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
+function hexToRgb(hex) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return `rgb(${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)})`
+}
+
+
+//taken from https://www.w3schools.com/howto/howto_js_dropdown.asp
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function dropDown() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+
+const slider = document.getElementById("myRange");
+slider.addEventListener("change", function() {
+    document.getElementById("output").textContent = slider.value;
+});
 
 const btnConfirm = document.getElementById("confirm")
 btnConfirm.addEventListener("click", ()=>{
@@ -118,9 +155,14 @@ btnReset.addEventListener("click", ()=>{
     clearBoard()
 })
 
+const fillPicker = document.getElementById("custom-fill-color")
+fillPicker.addEventListener("input", ()=>{
+    fillColor = hexToRgb(fillPicker.value)
+})
+
 let defaultSelection = document.getElementById("choice-default")
 defaultSelection.addEventListener("click", () =>{
-    themeChange("rgb(255,0,0)", "rgb(246,142,95)","rgb(245, 221, 144)")
+    themeChange( "rgb(246,142,95)","rgb(255,0,0)","rgb(245, 221, 144)")
 })
 
 let whiteSelection = document.getElementById("choice-white")
@@ -130,43 +172,20 @@ whiteSelection.addEventListener("click", () =>{
 
 let blackSelection = document.getElementById("choice-black")
 blackSelection.addEventListener("click", () =>{
-    themeChange("rgb(0,0,0)","rgb(253,253,253)","rgb(95, 95, 95)" )
+    themeChange("rgb(0,0,0)","rgb(255,255,255)","rgb(95, 95, 95)" )
+})
+
+let randomSelection = document.getElementById("choice-random")
+randomSelection.addEventListener("click", () =>{
+    themeChange(getRandomColor(),getRandomColor(),getRandomColor() )
 })
 
 
-
-
-
-/* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
-function dropDown() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}
-
-// Close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-
-
-
-function themeChange(bg, fill, background){
-    bgColor = bg
-    fillColor = fill
-    removeGrid()
-    fillGrid(gridSize)
-    slider.style.setProperty("--thumb-color", bgColor);
-    body.style.backgroundColor = background;
-}
-
+let gridSize = 16
+const container = document.getElementById("container")
+const body = document.querySelector("body")
+let mode = "default"
+let fillColor = "rgb(255,0,0)"
+let bgColor = "rgb(246,142,95)"
 
 fillGrid(gridSize)
