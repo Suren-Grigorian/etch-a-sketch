@@ -1,7 +1,9 @@
 let gridSize = 16
 const container = document.getElementById("container")
+const body = document.querySelector("body")
 let mode = "default"
-
+let fillColor = "rgb(255,0,0)"
+let bgColor = "rgb(246,142,95)"
 
 const slider = document.getElementById("myRange");
 slider.addEventListener("change", function() {
@@ -13,20 +15,22 @@ function fillRow(n, row){
     for (let i=0; i< n; i++){
         const gridCell = document.createElement("div")
         gridCell.className = "singleCell"
-        gridCell.style.backgroundColor = "rgb(246, 142, 95)"
+        gridCell.style.backgroundColor = bgColor
+        gridCell.style.borderColor = "rgb(0,0,0)"
         gridCell.dataset.percentage = Number(0)
         gridCell.addEventListener("mouseover",()=> {
             if (mode === "default"){
-                gridCell.style.backgroundColor = "rgb(255,0,0)"
+                gridCell.style.backgroundColor = fillColor
             }else if (mode == "rainbow"){
                 gridCell.style.backgroundColor = getRandomColor()
             }else if (mode == "eraser"){
-                gridCell.style.backgroundColor = "rgb(246,142,95)"
+                gridCell.style.backgroundColor = bgColor
             }else if (mode == "shadow"){
                 gridCell.dataset.percentage = Number(gridCell.dataset.percentage) + 1;
-                console.log(gridCell.style.backgroundColor)
-                gridCell.style.backgroundColor = colorTransform(gridCell.dataset.percentage, toRGBArray(gridCell.style.backgroundColor), [255,0,0])
+                gridCell.style.backgroundColor = colorTransform(gridCell.dataset.percentage, toRGBArray(gridCell.style.backgroundColor), toRGBArray(fillColor))
 
+            }else{
+                gridCell.style.backgroundColor = bgColor
             }
         })
         row.appendChild(gridCell)
@@ -114,6 +118,55 @@ btnReset.addEventListener("click", ()=>{
     clearBoard()
 })
 
+let defaultSelection = document.getElementById("choice-default")
+defaultSelection.addEventListener("click", () =>{
+    themeChange("rgb(255,0,0)", "rgb(246,142,95)","rgb(245, 221, 144)")
+})
+
+let whiteSelection = document.getElementById("choice-white")
+whiteSelection.addEventListener("click", () =>{
+    themeChange("rgb(253,253,253)","rgb(0,0,0)", "rgb(53, 52, 52)")
+})
+
+let blackSelection = document.getElementById("choice-black")
+blackSelection.addEventListener("click", () =>{
+    themeChange("rgb(0,0,0)","rgb(253,253,253)","rgb(95, 95, 95)" )
+})
+
+
+
+
+
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function dropDown() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+
+
+function themeChange(bg, fill, background){
+    bgColor = bg
+    fillColor = fill
+    removeGrid()
+    fillGrid(gridSize)
+    slider.style.setProperty("--thumb-color", bgColor);
+    body.style.backgroundColor = background;
+}
 
 
 fillGrid(gridSize)
