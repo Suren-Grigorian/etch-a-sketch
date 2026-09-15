@@ -1,3 +1,4 @@
+/* Colors: #586ba4", "#324376", "#f5dd90", "#f68e5f", "#f76c5e */
 body{
     background-color: #f5dd90;
     display: flex;
@@ -6,6 +7,12 @@ body{
     justify-content: space-around;
     padding: 0px 100px;
 }
+
+#container{
+    display: flex;
+    flex-direction: column;
+}
+
 
 #page{
     display: flex;
@@ -38,6 +45,15 @@ p{
 
 .singleCell{
     background-color: #f68e5f;
+    border-width: 1px;
+    border-style: solid;
+    flex: 1;
+}
+
+.row{
+    display:flex;
+    flex: 1;
+    flex-direction: row;
 }
 
 .permahover{
