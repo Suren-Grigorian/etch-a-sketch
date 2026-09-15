@@ -62,13 +62,42 @@ p{
     background-color: red;
 }
 
+#buttons{
+    display:flex;
+    flex-direction: column;
+}
+
 button{
+    cursor: pointer;
     margin-top: 10px;
-    width: 200px;
-    height: 70px;
-    background-color: #f76c5e;
-    font-size: 30px;
-    border-radius: 5%;
+    background-color: #f5dd90;
+    font-weight: 800;
+    font-size: 25px;
+    color: #f76c5e;
+    border-color: #f76c5e;
+    border-style: solid;
+    border-width: 4px;
+    border-radius: 30px;
+    padding: 20px;
+}
+
+button:hover{
+    filter: brightness(98%)
+}
+
+#confirm{
+    font-size: 15px;
+}
+
+#rainbow:hover{
+    background: 
+   linear-gradient(rgba(255,0,0,1) 0%, rgba(255,154,0,1) 10%, rgba(208,222,33,1) 20%, rgba(79,220,74,1) 30%, rgba(63,218,216,1) 40%, rgba(47,201,226,1) 50%, rgba(28,127,238,1) 60%, rgba(95,21,242,1) 70%, rgba(186,12,248,1) 80%, rgba(251,7,217,1) 90%, rgba(255,0,0,1) 100%) 
+   0 0/100% 200%;
+   animation: rainbow-animation 2s linear infinite;
+}
+
+@keyframes rainbow-animation {
+  to {background-position:0 -200%}
 }
 
 .slidecontainer{
@@ -79,11 +108,10 @@ button{
 }
 
 .slider{
-    writing-mode: vertical-lr;
     -webkit-appearance: none;
-    width: 26px;
-    height: 250px;
-    border-radius: 5px;
+    width: 250px;
+    height: 26px;
+    border-radius: 15px;
     background: #f76c5e;
     outline: none;
     opacity: 0.7;
