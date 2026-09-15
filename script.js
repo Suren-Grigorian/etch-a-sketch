@@ -13,7 +13,8 @@ function fillRow(n, row){
             }else if (mode == "eraser"){
                 gridCell.style.backgroundColor = bgColor
             }else if (mode == "shadow"){
-                gridCell.dataset.percentage = Number(gridCell.dataset.percentage) + 1;
+                if (Number(gridCell.dataset.percentage) < 10){
+                    gridCell.dataset.percentage = Number(gridCell.dataset.percentage) + 1;}
                 gridCell.style.backgroundColor = colorTransform(gridCell.dataset.percentage, 
                                                                 toRGBArray(gridCell.style.backgroundColor), 
                                                                 toRGBArray(fillColor))
@@ -52,16 +53,16 @@ function colorTransform(percentage, start, end){
     if (start == end){
         return
     }
-    const [rStart, bStart, gStart] = start;
-    const [rEnd, bEnd, gEnd] = end;
+    const [rStart, gStart, bStart] = start;
+    const [rEnd, gEnd, bEnd] = end;
     let rResult = rStart + (rEnd - rStart) * percentage / 10
-    let bResult = bStart + (bEnd - bStart) * percentage / 10
     let gResult = gStart + (gEnd - gStart) * percentage / 10
-    return (`rgb(${rResult}, ${bResult}, ${gResult}`)
+    let bResult = bStart + (bEnd - bStart) * percentage / 10
+    return (`rgb(${rResult}, ${gResult}, ${bResult}`)
 }
 
 function getRandomColor() {
-  color = `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)} )`
+  let color = `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)} )`
   return color
 
 }
@@ -82,6 +83,7 @@ function themeChange(bg, fill, background){
     document.querySelectorAll("button").forEach(button =>{
         button.style.color = bg
         button.style.borderColor = bg
+        
     })
     document.querySelector("h1").style.color = bg
     document.querySelector("h2").style.color = bg
@@ -91,7 +93,7 @@ const toRGBArray = (rgbStr) => rgbStr.match(/\d+/g).map(Number);
 
 //modified version taken from https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
 function hexToRgb(hex) {
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return `rgb(${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)})`
 }
 
@@ -105,10 +107,10 @@ function dropDown() {
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
+    let dropdowns = document.getElementsByClassName("dropdown-content");
+    let i;
     for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
+      let openDropdown = dropdowns[i];
       if (openDropdown.classList.contains('show')) {
         openDropdown.classList.remove('show');
       }
