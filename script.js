@@ -46,9 +46,7 @@ function clearBoard(){
 
 
 function mouseover_listener(){
-    const singleCellList = document.querySelectorAll(".singleCell")
-    const singleCellArray = [...singleCellList]
-    singleCellArray.forEach(cell => {
+    document.querySelectorAll(".singleCell").forEach(cell => {
         cell.addEventListener("mouseover",()=> {
             cell.classList.add("permahover")
     })
@@ -56,15 +54,8 @@ function mouseover_listener(){
 
 
 function removeCells(){
-    let singleCellList = document.querySelectorAll(".singleCell")
-        let singleCellArray = [...singleCellList]
-        singleCellArray.forEach(cell => {
-            cell.remove()
-    })
-    let singleRowList = document.querySelectorAll(".row")
-        let singleRowArray = [...singleRowList]
-        singleRowArray.forEach(row => {
-            row.remove()
+    document.querySelectorAll(".row").forEach(row => {
+        row.remove()
     })
 }
 

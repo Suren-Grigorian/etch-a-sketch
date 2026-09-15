@@ -1,7 +1,11 @@
 # etch-a-sketch
-A simple Etch-a-Sketch Website
+A browser-based Etch-a-Sketch.
 
-This web-page generates a grid of cells, 
-hovering over which changes their color.
-There is a button to reset the board and a slider to
-choose the size of the grid. 
+Features:
+- Draw by hovering over grid cells.
+- Choose the size of the grid using a slider
+- Reset the board
+
+Built with HTML, CSS and JavaScript.
+
+The goal of this project was to practice flexbox and DOM manipulation.
