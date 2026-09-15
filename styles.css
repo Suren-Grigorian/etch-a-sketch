@@ -11,7 +11,8 @@ body{
 #container{
     display: flex;
     flex-direction: column;
-
+    width: 750px;
+    height: 750px;
 }
 
 
@@ -80,7 +81,7 @@ button{
 .slider{
     writing-mode: vertical-lr;
     -webkit-appearance: none;
-    width: 28px;
+    width: 26px;
     height: 250px;
     border-radius: 5px;
     background: #f76c5e;
