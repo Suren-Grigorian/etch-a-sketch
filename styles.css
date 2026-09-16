@@ -1,6 +1,7 @@
 /* Colors: #586ba4", "#324376", "#f5dd90", "#f68e5f", "#f76c5e */
+/* background-color: rgb(243, 227, 175); */
 body{
-    background-color: rgb(245, 221, 144);
+    background-color: rgb(243, 227, 175);
     display: flex;
     flex-direction: row;
     align-items:center;
@@ -26,7 +27,7 @@ body{
 
 h1{
     font-size: 50px;
-    color: #f76c5e;
+    color: rgb(247, 108, 94);
     border-style: solid;
     padding: 20px;
     border-width: 4px;
@@ -66,16 +67,22 @@ p{
 
 .singleCell{
     background-color: #f68e5f;
+    flex: 1;
+}
+
+.borderedCell{
     border-width: 0.002px;
     border-style: solid;
-    flex: 1;
+}
+
+.unborderedCell{
+    background-color: blue;
+    border-style: none;
 }
 
 #color-picker{
     display:flex;
     flex-direction: column;
-
-
 }
 
 #color-choose{
@@ -87,6 +94,37 @@ p{
 .color-picker{
     flex: 1;
     min-height: 80px;
+}
+
+.grid-border-check{
+    display:flex;
+    gap: 10px;
+    cursor: pointer;
+    background: transparent;
+    font-weight: 800;
+    font-size: 25px;
+    color: #f76c5e;
+    border-color: #f76c5e;
+    border-style: solid;
+    border-width: 4px;
+    border-radius: 30px;
+    padding: 20px;
+    min-width: 210px;
+}
+
+input[type='checkbox']:checked {
+  width: 50px;
+  background-color: #023047;
+}
+
+.grid-border-check > input[type="checkbox"] {
+    appearance: none;
+    background-color: rgb(243, 227, 175);
+ }
+    
+.grid-border-check > input[type="checkbox"]:checked {
+    appearance: revert;
+    accent-color: rgb(243, 227, 175)
 }
 
 .row{
@@ -123,6 +161,11 @@ button:hover{
     color: #f5dd90;
 }
 
+.buttonselected{
+    background-color: #f76c5e;
+    color: #f5dd90;
+}
+
 #confirm{
     font-size: 15px;
 }
@@ -133,6 +176,15 @@ button:hover{
    0 0/100% 200%;
    animation: rainbow-animation 2s linear infinite;
 }
+
+
+.rainbowselected{
+    background: 
+   linear-gradient(rgba(255,0,0,1) 0%, rgba(255,154,0,1) 10%, rgba(208,222,33,1) 20%, rgba(79,220,74,1) 30%, rgba(63,218,216,1) 40%, rgba(47,201,226,1) 50%, rgba(28,127,238,1) 60%, rgba(95,21,242,1) 70%, rgba(186,12,248,1) 80%, rgba(251,7,217,1) 90%, rgba(255,0,0,1) 100%) 
+   0 0/100% 200%;
+   animation: rainbow-animation 2s linear infinite;
+}
+
 
 @keyframes rainbow-animation {
   to {background-position:0 -200%}
@@ -212,7 +264,7 @@ button:hover{
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f5dd90;
+  background-color: rgb(243, 227, 175);
   filter: brightness(98%);
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);

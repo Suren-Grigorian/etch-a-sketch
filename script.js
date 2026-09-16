@@ -5,22 +5,36 @@ function fillRow(n, row){
         gridCell.style.backgroundColor = bgColor
         gridCell.style.borderColor = "rgb(0,0,0)"
         gridCell.dataset.percentage = Number(0)
+        if (grid === true){
+            gridCell.classList.add("borderedCell")
+        }else{
+            gridCell.classList.add("unborderedCell")
+        }
+        gridCell.addEventListener("pointerdown",()=>{
+            event.preventDefault();
+            isDrawing = true;
+        })
+        body.addEventListener("pointerup", ()=>{
+            isDrawing = false
+        })
         gridCell.addEventListener("mouseover",()=> {
-            if (mode === "default"){
-                gridCell.style.backgroundColor = fillColor
-            }else if (mode == "rainbow"){
-                gridCell.style.backgroundColor = getRandomColor()
-            }else if (mode == "eraser"){
-                gridCell.style.backgroundColor = bgColor
-            }else if (mode == "shadow"){
-                if (Number(gridCell.dataset.percentage) < 10){
-                    gridCell.dataset.percentage = Number(gridCell.dataset.percentage) + 1;}
-                gridCell.style.backgroundColor = colorTransform(gridCell.dataset.percentage, 
-                                                                toRGBArray(gridCell.style.backgroundColor), 
-                                                                toRGBArray(fillColor))
+            if (isDrawing) {
+                if (mode === "default"){
+                    gridCell.style.backgroundColor = fillColor
+                }else if (mode == "rainbow"){
+                    gridCell.style.backgroundColor = getRandomColor()
+                }else if (mode == "eraser"){
+                    gridCell.style.backgroundColor = bgColor
+                }else if (mode == "shadow"){
+                    if (Number(gridCell.dataset.percentage) < 10){
+                        gridCell.dataset.percentage = Number(gridCell.dataset.percentage) + 1;}
+                    gridCell.style.backgroundColor = colorTransform(gridCell.dataset.percentage, 
+                                                                    toRGBArray(gridCell.style.backgroundColor), 
+                                                                    toRGBArray(fillColor))
 
-            }else{
-                gridCell.style.backgroundColor = bgColor
+                }else{
+                    gridCell.style.backgroundColor = bgColor
+                }
             }
         })
         row.appendChild(gridCell)
@@ -80,13 +94,19 @@ function themeChange(bg, fill, background){
     } else{
         output.style.color = "rgb(0,0,0)"}
     body.style.backgroundColor = background;
+    gridButton.style.color = bg
+    gridButton.style.borderColor = bg
     document.querySelectorAll("button").forEach(button =>{
         button.style.color = bg
         button.style.borderColor = bg
-        
     })
-    document.querySelector("h1").style.color = bg
-    document.querySelector("h2").style.color = bg
+    if (bg === "rgb(246,142,95)"){
+        document.querySelector("h1").style.color = "rgb(247, 108, 94)"
+        document.querySelector("h2").style.color = "rgb(247, 108, 94)"
+    }else{
+        document.querySelector("h1").style.color = bg
+        document.querySelector("h2").style.color = bg
+    }
 }
 
 const toRGBArray = (rgbStr) => rgbStr.match(/\d+/g).map(Number);
@@ -124,6 +144,41 @@ slider.addEventListener("change", function() {
     document.getElementById("output").textContent = slider.value;
 });
 
+const defaultSelection = document.getElementById("choice-default")
+defaultSelection.addEventListener("click", () =>{
+    themeChange( "rgb(246,142,95)","rgb(255,0,0)","rgb(243, 227, 175)")
+})
+
+const whiteSelection = document.getElementById("choice-white")
+whiteSelection.addEventListener("click", () =>{
+    themeChange("rgb(253,253,253)","rgb(0,0,0)", "rgb(53, 52, 52)")
+})
+
+const blackSelection = document.getElementById("choice-black")
+blackSelection.addEventListener("click", () =>{
+    themeChange("rgb(0,0,0)","rgb(255,255,255)","rgb(95, 95, 95)" )
+})
+
+const randomSelection = document.getElementById("choice-random")
+randomSelection.addEventListener("click", () =>{
+    themeChange(getRandomColor(),getRandomColor(),getRandomColor() )
+})
+
+const gridSelector = document.getElementById("checkbox")
+gridSelector.addEventListener("change",() =>{
+    document.querySelectorAll(".singleCell").forEach(cell => {
+    if (gridSelector.checked){
+        cell.classList.add("borderedCell")
+        cell.classList.remove("unborderedCell")
+        grid = true
+    } else{
+        cell.classList.add("unborderedCell")
+        cell.classList.remove("borderedCell")
+        grid = false
+    }
+    })
+})
+
 const btnConfirm = document.getElementById("confirm")
 btnConfirm.addEventListener("click", ()=>{
     removeGrid()
@@ -134,23 +189,41 @@ btnConfirm.addEventListener("click", ()=>{
 const btnDefault = document.getElementById("default")
 btnDefault.addEventListener("click", ()=>{
     mode = "default"
+    removeButtonClasses()
+    btnDefault.classList.add("buttonselected")
 })
 
 const btnShadow = document.getElementById("shadow")
 btnShadow.addEventListener("click", ()=>{
     mode = "shadow"
-})
-
-
-const btnRainbow = document.getElementById("rainbow")
-btnRainbow.addEventListener("click", ()=>{
-    mode = "rainbow"
+    removeButtonClasses()
+    btnShadow.classList.add("buttonselected")
 })
 
 const btnEraser = document.getElementById("eraser")
 btnEraser.addEventListener("click", ()=>{
     mode = "eraser"
+    removeButtonClasses()
+    btnEraser.classList.add("buttonselected")
+    
 })
+
+const btnRainbow = document.getElementById("rainbow")
+btnRainbow.addEventListener("click", ()=>{
+    mode = "rainbow"
+    removeButtonClasses()
+    btnRainbow.classList.add("rainbowselected")
+})
+
+
+function removeButtonClasses(){
+    btnDefault.classList.remove("buttonselected")
+    btnShadow.classList.remove("buttonselected")
+    btnEraser.classList.remove("buttonselected")
+    btnRainbow.classList.remove("rainbowselected")
+}
+
+
 
 const btnReset = document.getElementById("reset")
 btnReset.addEventListener("click", ()=>{
@@ -162,32 +235,17 @@ fillPicker.addEventListener("input", ()=>{
     fillColor = hexToRgb(fillPicker.value)
 })
 
-let defaultSelection = document.getElementById("choice-default")
-defaultSelection.addEventListener("click", () =>{
-    themeChange( "rgb(246,142,95)","rgb(255,0,0)","rgb(245, 221, 144)")
-})
 
-let whiteSelection = document.getElementById("choice-white")
-whiteSelection.addEventListener("click", () =>{
-    themeChange("rgb(253,253,253)","rgb(0,0,0)", "rgb(53, 52, 52)")
-})
-
-let blackSelection = document.getElementById("choice-black")
-blackSelection.addEventListener("click", () =>{
-    themeChange("rgb(0,0,0)","rgb(255,255,255)","rgb(95, 95, 95)" )
-})
-
-let randomSelection = document.getElementById("choice-random")
-randomSelection.addEventListener("click", () =>{
-    themeChange(getRandomColor(),getRandomColor(),getRandomColor() )
-})
 
 
 let gridSize = 16
 const container = document.getElementById("container")
 const body = document.querySelector("body")
+const gridButton = document.getElementById("grid-button")
 let mode = "default"
+let grid = true
 let fillColor = "rgb(255,0,0)"
 let bgColor = "rgb(246,142,95)"
+let isDrawing = false
 
 fillGrid(gridSize)
